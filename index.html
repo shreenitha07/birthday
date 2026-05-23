@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You — Birthday Surprise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <div class="loader" id="loader" aria-live="polite">
+    <div class="loader__scrap">
+      <span class="loader__heart">♥</span>
+      <p class="loader__text">Opening your scrapbook…</p>
+      <div class="loader__bar"><span class="loader__bar-fill"></span></div>
+    </div>
+  </div>
+
+  <div class="global-sparkles" id="globalSparkles" aria-hidden="true"></div>
+  <div class="float-layer" id="floatLayer" aria-hidden="true"></div>
+
+  <nav class="page-nav" id="pageNav" hidden aria-label="Pages">
+    <div class="page-nav__inner" id="pageNavLinks"></div>
+  </nav>
+
+  <div class="sky-decor sky-decor--inner" id="skyDecor" hidden>
+    <button type="button" class="sky-star" data-secret="0" title="A secret">✦</button>
+    <button type="button" class="sky-star" data-secret="1" title="A secret">✦</button>
+    <button type="button" class="sky-heart" data-secret="2" title="Tap me">♥</button>
+  </div>
+
+  <div id="flowRoot" class="flow-root">
+    <section id="stepHome" class="flow-step flow-step--red flow-step--home is-active" data-flow-index="0" role="region" aria-label="Welcome">
+      <div class="home-center">
+        <header class="hero hero--solo" id="top">
+          <p class="hero__eyebrow">A small corner of the internet made only for you.</p>
+          <h1 class="hero__title">Happy Birthday, <span id="heroName">His Name</span> <span class="heart">❤️</span></h1>
+          <p class="hero__sub" id="heroSub">Today is yours — when you’re ready, your surprise is waiting.</p>
+          <audio id="bgMusic" loop preload="metadata" hidden>
+            <source src="" type="audio/mpeg" />
+          </audio>
+        </header>
+      </div>
+    </section>
+
+    <section id="stepLock" class="flow-step flow-step--red" data-flow-index="1" role="region" aria-label="Secret passcode" hidden>
+      <div class="lock-split">
+        <div class="lock-split__photo">
+          <figure class="lock-polaroid">
+            <div class="lock-polaroid__img" id="lockPolaroidImg"></div>
+            <figcaption class="lock-polaroid__cap">for you ♡</figcaption>
+          </figure>
+          <span class="scrap-sticker scrap-sticker--bow" aria-hidden="true">🎀</span>
+          <span class="scrap-sticker scrap-sticker--bear" aria-hidden="true">🧸</span>
+        </div>
+        <div class="lock-split__panel">
+          <h2 class="page-heading">Enter a passcode</h2>
+          <div class="lock-screen__boxes" id="lockBoxes" aria-live="polite">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="lock-keypad lock-keypad--round" id="lockKeypad"></div>
+          <p class="lock-screen__hint" id="lockHint"></p>
+          <button type="button" class="lock-screen__clear" id="lockClear">clear</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="stepStory" class="flow-step flow-step--paper flow-step--story-full" data-flow-index="2" role="region" aria-label="Our story" hidden>
+      <div class="flow-step__scroll flow-step__scroll--full">
+        <header class="story-page__header">
+          <p class="scrap-page__eyebrow">Us, in chapters</p>
+          <h2 class="scrap-page__title">Our story</h2>
+          <p class="scrap-page__lead">A slow scroll through what matters.</p>
+          <svg class="story-doodle" aria-hidden="true" viewBox="0 0 900 200" preserveAspectRatio="none">
+            <path d="M40,100 Q220,40 450,90 T860,70" fill="none" stroke="#e8194a" stroke-width="2" stroke-dasharray="10 8" opacity="0.35"/>
+            <path d="M120,140 Q380,180 620,120" fill="none" stroke="#ff2e63" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.25"/>
+          </svg>
+        </header>
+        <div class="story-masonry" id="storyMasonry"></div>
+      </div>
+    </section>
+
+    <section id="stepFavorite" class="flow-step flow-step--paper" data-flow-index="3" role="region" aria-label="Favorite person" hidden>
+      <div class="flow-step__scroll">
+        <div class="favorite-page">
+          <div class="favorite-page__quote">
+            <p class="scrap-page__eyebrow">My favorite person</p>
+            <blockquote class="favorite-page__text" id="favoriteQuote"></blockquote>
+          </div>
+          <div class="favorite-page__visual" id="favoriteCollage"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stepMusic" class="flow-step flow-step--red" data-flow-index="4" role="region" aria-label="Music memories" hidden>
+      <div class="flow-step__scroll">
+        <div class="flow-step__inner flow-step__inner--wide">
+          <p class="page-eyebrow">Soundtrack of us</p>
+          <h2 class="page-heading">Music memories</h2>
+          <p class="page-lead">Every song holds a little piece of you.</p>
+          <div class="vinyl-player">
+            <div class="vinyl-player__disc-wrap">
+              <div class="vinyl-player__disc" id="vinylDisc" aria-hidden="true">
+                <div class="vinyl-player__label">♥</div>
+              </div>
+              <div class="music-notes-float" aria-hidden="true">♪ ♫ ♪</div>
+            </div>
+            <div class="vinyl-player__controls">
+              <p class="vinyl-player__now" id="nowPlaying">—</p>
+              <div class="vinyl-player__progress">
+                <div class="vinyl-player__progress-fill" id="trackProgress"></div>
+              </div>
+              <div class="vinyl-player__btns">
+                <button type="button" class="btn btn--icon" id="prevTrack" aria-label="Previous">⏮</button>
+                <button type="button" class="btn btn--white btn--icon-lg" id="playTrack" aria-label="Play pause">▶</button>
+                <button type="button" class="btn btn--icon" id="nextTrack" aria-label="Next">⏭</button>
+              </div>
+            </div>
+          </div>
+          <ol class="playlist" id="playlist"></ol>
+          <audio id="playlistAudio" preload="metadata"></audio>
+        </div>
+      </div>
+    </section>
+
+    <section id="stepLetter" class="flow-step flow-step--red" data-flow-index="5" role="region" aria-label="Love letter" hidden>
+      <div class="flow-step__scroll">
+        <div class="flow-step__inner letter-scene">
+          <p class="page-eyebrow">For your eyes only</p>
+          <h2 class="page-heading">A love letter</h2>
+          <div class="love-letter-paper" id="loveLetterPaper" aria-live="polite">
+            <div class="love-letter__meta">
+              <p class="love-letter__line">To: <span id="letterToName"></span></p>
+              <p class="love-letter__line">From: <span id="letterFromName">Me</span></p>
+            </div>
+            <h3 class="love-letter__heading">My Love, <span id="letterHeadingName"></span></h3>
+            <div class="love-letter__content">
+              <p id="typedLetter" class="love-letter__body"></p>
+              <span class="love-letter__cursor" id="letterCursor" aria-hidden="true"></span>
+            </div>
+            <p class="love-letter__sign">— Me</p>
+          </div>
+          <button type="button" class="btn btn--white-outline letter-replay" id="replayLetter" hidden>Read it again for me</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="stepFinale" class="flow-step flow-step--red" data-flow-index="6" role="region" aria-label="For you" hidden>
+      <div class="flow-step__scroll">
+        <div class="flow-step__inner finale-page" id="finalePageRoot">
+          <div class="finale-decor" id="finaleDecor" aria-hidden="true"></div>
+
+          <header class="finale-header">
+            <p class="page-eyebrow" id="finaleEyebrow"></p>
+            <h2 class="page-heading" id="finaleTitle"></h2>
+            <p class="page-lead finale-header__lead" id="finaleLead"></p>
+          </header>
+
+          <div class="finale-layout" aria-label="For you">
+            <div class="finale-top">
+              <figure class="finale-showcase">
+                <span class="finale-hero__sticker finale-hero__sticker--tl" aria-hidden="true">🎀</span>
+                <span class="finale-hero__sticker finale-hero__sticker--tr" aria-hidden="true">💐</span>
+                <div class="finale-hero__frame">
+                  <img
+                    id="finaleBouquetImg"
+                    class="finale-bouquet-img"
+                    src="assets/bouquet-dino.png"
+                    alt="A tiny dinosaur holding a huge bouquet of pink flowers"
+                    width="640"
+                    height="640"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <span class="finale-hero__sticker finale-hero__sticker--bl" aria-hidden="true">♥</span>
+                <span class="finale-hero__sticker finale-hero__sticker--br" aria-hidden="true">✨</span>
+              </figure>
+              <div class="finale-awards" id="finaleBadgesList" aria-label="Your medals"></div>
+            </div>
+
+            <div class="finale-closing">
+              <div class="finale-letter__body" id="finaleMemory"></div>
+              <p class="finale-letter__sign" id="finaleSign"></p>
+              <p class="finale-closing__footer" id="finaleFooterNote"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="flow-nav" id="flowNav" hidden aria-label="Between pages">
+    <button type="button" class="btn btn--nav btn--nav-back" id="btnFlowBack">
+      <span class="btn--nav__main" id="btnFlowBackMain">← Take me back</span>
+      <span class="btn--nav__hint" id="btnFlowBackHint"></span>
+    </button>
+    <button type="button" class="btn btn--nav btn--nav-next" id="btnFlowNext">
+      <span class="btn--nav__main" id="btnFlowNextMain">NEXT</span>
+      <span class="btn--nav__hint" id="btnFlowNextHint"></span>
+    </button>
+  </nav>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal__close" data-close-modal aria-label="Close">&times;</button>
+      <h3 id="modalTitle" class="modal__title"></h3>
+      <div id="modalBody" class="modal__body"></div>
+    </div>
+  </div>
+
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
