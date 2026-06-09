@@ -822,12 +822,25 @@ body.has-flow-nav {
   line-height: 1.1;
 }
 
+.hero__countdown {
+  display: inline-block;
+  margin: 0 0 0.85rem;
+  padding: 0.4rem 0.95rem;
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--red-deep);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
 .hero__sub {
   font-size: 0.95rem;
   font-weight: 400;
   opacity: 0.9;
   line-height: 1.55;
-  margin: 0 0 1.75rem;
+  margin: 0 0 1.25rem;
 }
 
 .hero__actions {
@@ -1197,6 +1210,65 @@ body.has-flow-nav {
 .btn--icon-lg {
   width: 3rem;
   height: 3rem;
+}
+
+.spotify-panel {
+  margin: 1.25rem 0 0;
+  padding: 1rem 1rem 0.85rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+}
+
+.spotify-panel__eyebrow {
+  margin: 0 0 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.spotify-panel__title {
+  margin: 0 0 0.15rem;
+  font-family: var(--hand);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.spotify-panel__meta {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  opacity: 0.85;
+}
+
+.spotify-panel__embed {
+  border-radius: 12px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.spotify-embed {
+  display: block;
+  width: 100%;
+  min-height: 352px;
+  border: 0;
+}
+
+.spotify-panel__link {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.spotify-panel__link:hover {
+  opacity: 1;
+  text-decoration: underline;
 }
 
 .playlist {

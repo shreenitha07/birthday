@@ -39,10 +39,8 @@
         <header class="hero hero--solo" id="top">
           <p class="hero__eyebrow">A small corner of the internet made only for you.</p>
           <h1 class="hero__title">Happy Birthday, <span id="heroName">His Name</span> <span class="heart">❤️</span></h1>
+          <p class="hero__countdown" id="heroCountdown" hidden></p>
           <p class="hero__sub" id="heroSub">Today is yours — when you’re ready, your surprise is waiting.</p>
-          <audio id="bgMusic" loop preload="metadata" hidden>
-            <source src="" type="audio/mpeg" />
-          </audio>
         </header>
       </div>
     </section>
@@ -122,6 +120,15 @@
             </div>
           </div>
           <ol class="playlist" id="playlist"></ol>
+          <div class="spotify-panel" id="spotifyPanel" hidden>
+            <div class="spotify-panel__head">
+              <p class="spotify-panel__eyebrow">On Spotify</p>
+              <h3 class="spotify-panel__title" id="spotifyPlaylistTitle">Our playlist</h3>
+              <p class="spotify-panel__meta" id="spotifyPlaylistMeta"></p>
+            </div>
+            <div class="spotify-panel__embed" id="spotifyEmbedHost"></div>
+            <a class="spotify-panel__link" id="spotifyOpenLink" href="#" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a>
+          </div>
           <audio id="playlistAudio" preload="metadata"></audio>
         </div>
       </div>

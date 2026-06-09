@@ -2,7 +2,7 @@
  * Customize everything here — names, dates, copy, optional music URL.
  */
 window.BIRTHDAY_CONFIG = {
-  name: "Aakashuhhh",
+  name: "Aakashuuuuu",
 
   /** Next birthday (YYYY-MM-DD) for optional countdown chip in hero — optional */
   birthdayISO: "2004-07-22",
@@ -110,10 +110,17 @@ That you pour upon me. I don't have perfect words for how you make me feel, but 
   },
 
   /**
-   * Optional: URL to an MP3 you host (same folder is fine: "media/song.mp3").
-   * Leave empty — the music button will show a gentle prompt instead.
+   * Optional home background music. Leave empty to use the first playlist[] track.
    */
   musicSrc: "",
+
+  /** Spotify playlist on the music page */
+  spotifyPlaylist: {
+    id: "1v51ya52a2wtWIE7lKHbPI",
+    title: "Song",
+    curator: "Shree Nitha",
+    url: "https://open.spotify.com/playlist/1v51ya52a2wtWIE7lKHbPI",
+  },
 
   /** Secret passcode (4 digits) — unlocks memory pages */
   passcode: "2504",

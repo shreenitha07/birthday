@@ -102,13 +102,27 @@
     if (letterHeading) letterHeading.textContent = name;
     document.title = `Happy Golden Birthday to my Golden boy, ${name}`;
 
+    const chip = $("#heroCountdown");
     const sub = $("#heroSub");
-    if (sub && cfg.birthdayISO) {
+    if (cfg.birthdayISO) {
       const days = daysUntilBirthday(cfg.birthdayISO);
-      if (days > 0) {
-        sub.textContent = `${days} day${days === 1 ? "" : "s"} until your birthday — tap “Open your surprise” when your heart says yes.`;
-      } else if (days === 0) {
-        sub.textContent = `Today's the day. When you're ready, open your surprise — I'm so glad you exist.`;
+      if (chip) {
+        if (days === 0) {
+          chip.textContent = "🎂 Today is your birthday";
+          chip.hidden = false;
+        } else if (days > 0) {
+          chip.textContent = `${days} day${days === 1 ? "" : "s"} until your day`;
+          chip.hidden = false;
+        } else {
+          chip.hidden = true;
+        }
+      }
+      if (sub) {
+        if (days === 0) {
+          sub.textContent = "Today's the day. When you're ready, open your surprise — I'm so glad you exist.";
+        } else if (days > 0) {
+          sub.textContent = "When you're ready, your surprise is waiting — tap below when your heart says yes.";
+        }
       }
     }
   }
@@ -580,13 +594,9 @@
     letterCursor?.classList.remove("is-off");
     if (letterTimer) clearInterval(letterTimer);
 
-    const bgMusic = $("#bgMusic");
-    if (bgMusic && !bgMusic.paused) bgMusic.volume = 0.2;
-
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       typedLetter.textContent = text;
       letterCursor?.classList.add("is-off");
-      if (bgMusic) bgMusic.volume = 1;
       return;
     }
 
@@ -597,7 +607,6 @@
         clearInterval(letterTimer);
         letterTimer = null;
         letterCursor?.classList.add("is-off");
-        if (bgMusic) bgMusic.volume = 1;
       }
     }, 28);
   }
@@ -614,6 +623,46 @@
       return cfg.playlist.filter((t) => t && t.src);
     }
     return [];
+  }
+
+  function spotifyPlaylistId(raw) {
+    if (!raw) return "";
+    const s = String(raw).trim();
+    const embedMatch = s.match(/embed\/playlist\/([a-zA-Z0-9]+)/);
+    if (embedMatch) return embedMatch[1];
+    const openMatch = s.match(/playlist\/([a-zA-Z0-9]+)/);
+    if (openMatch) return openMatch[1];
+    return s;
+  }
+
+  function renderSpotifyPlaylist() {
+    const sec = cfg.spotifyPlaylist || {};
+    const panel = $("#spotifyPanel");
+    const host = $("#spotifyEmbedHost");
+    const title = $("#spotifyPlaylistTitle");
+    const meta = $("#spotifyPlaylistMeta");
+    const link = $("#spotifyOpenLink");
+    const id = spotifyPlaylistId(sec.id || sec.url || "");
+    if (!panel || !host || !id) return;
+
+    if (title) title.textContent = sec.title || "Our playlist";
+    if (meta) meta.textContent = sec.curator ? `by ${sec.curator}` : "";
+    if (link) {
+      link.href = sec.url || `https://open.spotify.com/playlist/${id}`;
+    }
+
+    host.innerHTML = `<iframe
+      class="spotify-embed"
+      title="${escapeHtml(sec.title || "Spotify playlist")}"
+      src="https://open.spotify.com/embed/playlist/${encodeURIComponent(id)}?utm_source=generator"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+    ></iframe>`;
+    panel.hidden = false;
   }
 
   function renderPlaylist() {
@@ -691,14 +740,6 @@
       }
     });
     audio?.addEventListener("ended", () => loadTrack(trackIndex + 1, true));
-  }
-
-  function setupBgMusic() {
-    const bgMusic = $("#bgMusic");
-    if (cfg.musicSrc && bgMusic) {
-      bgMusic.querySelector("source")?.setAttribute("src", cfg.musicSrc);
-      bgMusic.load();
-    }
   }
 
   let confettiFrameId = null;
@@ -780,12 +821,12 @@
     renderFavorite();
     renderFinalePage();
     renderPlaylist();
+    renderSpotifyPlaylist();
     bindModalClose();
     setupPageNav();
     setupFlowNav();
     setupLockScreen();
     setupLetterReplay();
-    setupBgMusic();
     setupMusicPlayer();
     setupSecrets();
 
