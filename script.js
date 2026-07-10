@@ -267,17 +267,25 @@
     return emoji;
   }
 
+  function pinSizeForItem(j) {
+    const src = imagePath(j.image || "").toLowerCase();
+    if (!src) return "";
+    if (src.includes("future") || src.includes("thing") || src.includes("memory")) {
+      return "story-pin--landscape";
+    }
+    return "story-pin--portrait";
+  }
+
   function renderStoryMasonry() {
     const grid = $("#storyMasonry");
     if (!grid) return;
     const items = (cfg.journey || []).filter((j) => j.title !== "???");
-    const sizes = ["", "story-pin--tall", "story-pin--wide", ""];
     grid.innerHTML = items
       .map((j, i) => {
         const emoji = POLAROID_EMOJI[i % POLAROID_EMOJI.length];
         const img = mediaSlot(j.image, emoji);
         const title = j.title ? escapeHtml(j.title) : "♡";
-        const sizeClass = sizes[i % sizes.length];
+        const sizeClass = pinSizeForItem(j);
         const hasImg = Boolean(imagePath(j.image));
         return `
         <article class="story-pin ${sizeClass}${hasImg ? " story-pin--has-img" : ""}">

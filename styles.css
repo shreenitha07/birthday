@@ -340,12 +340,41 @@ body.has-flow-nav {
 }
 
 .story-pin__media {
+  position: relative;
   display: grid;
   place-items: center;
   min-height: 10rem;
   background: linear-gradient(145deg, #f5efe8 0%, #e8ddd0 50%, #f0e6dc 100%);
   font-size: 2.75rem;
   overflow: hidden;
+}
+
+.story-pin--has-img .story-pin__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 240, 0.08) 0%,
+    transparent 40%,
+    rgba(196, 18, 58, 0.06) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.story-pin--portrait.story-pin--has-img .story-pin__media {
+  aspect-ratio: 4 / 5;
+  min-height: auto;
+}
+
+.story-pin--landscape.story-pin--has-img .story-pin__media {
+  aspect-ratio: 16 / 10;
+  min-height: auto;
+}
+
+.story-pin--has-img .story-pin__media {
+  min-height: auto;
 }
 
 .story-pin--tall .story-pin__media {
@@ -356,21 +385,32 @@ body.has-flow-nav {
   min-height: 11rem;
 }
 
-.story-pin--has-img .story-pin__media {
-  min-height: 12rem;
-}
-
-.story-pin--has-img.story-pin--tall .story-pin__media {
-  min-height: 18rem;
-}
-
 .story-pin__media img {
   width: 100%;
   height: 100%;
   min-height: inherit;
   object-fit: cover;
+  object-position: center center;
   display: block;
   transition: transform 0.5s ease;
+  filter: saturate(1.02) contrast(1.02);
+}
+
+.story-pin--landscape .story-pin__media img {
+  object-position: center 42%;
+}
+
+.story-pin--landscape.story-pin--has-img .story-pin__media::after {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 252, 245, 0.18) 0%,
+    transparent 35%,
+    rgba(196, 18, 58, 0.05) 100%
+  );
+}
+
+.story-pin--portrait .story-pin__media img {
+  object-position: center center;
 }
 
 .story-pin:hover .story-pin__media img {
@@ -621,6 +661,7 @@ body.has-flow-nav {
 }
 
 .favorite-hero-pin__img {
+  position: relative;
   aspect-ratio: 4 / 5;
   display: grid;
   place-items: center;
@@ -629,11 +670,27 @@ body.has-flow-nav {
   overflow: hidden;
 }
 
+.favorite-hero-pin__img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 45%,
+    rgba(232, 25, 74, 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
 .favorite-hero-pin__img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 32%;
   display: block;
+  filter: saturate(1.04) contrast(1.03) brightness(1.02);
 }
 
 .favorite-hero-pin__cap {
